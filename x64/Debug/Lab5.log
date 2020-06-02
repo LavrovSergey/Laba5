@@ -1,0 +1,4 @@
+﻿  Lab5.cpp
+A:\GitHub\Laba5\Lab5.cpp(104): warning C4715:  Tree2::recursia3: значение возвращается не при всех путях выполнения
+A:\GitHub\Laba5\Lab5.cpp(213): warning C4715:  Tree1::recursia3: значение возвращается не при всех путях выполнения
+  Lab5.vcxproj -> A:\GitHub\Laba5\x64\Debug\Lab5.exe

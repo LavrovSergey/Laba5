@@ -14,7 +14,10 @@ struct Node {
 struct Tree2 {
 	Node* root = NULL;
 	Node* creat_leaf_new(Node* node) {
-		Node* cur = node;
+		Node* cur = new Node;
+		strcpy(cur->eng,node->eng);
+		strcpy(cur->ukr,node->ukr);
+		cur->counter= node->counter;
 		cur->left = NULL;
 		cur->right = NULL;
 		return cur;
@@ -70,6 +73,42 @@ struct Tree2 {
 	
 	void PrintInOrder() {
 		recursia2(root);
+		system("pause");
+	}
+	int recursia3(char e[], Node* node, int count)
+	{
+		if (node != NULL)
+		{
+
+			if (!strcmp(node->eng, e))
+			{
+				node->counter++;
+				cout << node->ukr << endl;
+				count++;
+			}
+			else
+			{
+				if (e[0] <= node->eng[0])
+				{
+					node->counter++;
+					recursia3(e, node->left, count);
+				}
+				else if (e[0] > node->eng[0])
+				{
+					node->counter++;
+					recursia3(e, node->right, count);
+				}
+			}
+		}
+		else { return count; }
+	}
+	void find() {
+		int count = 0;
+		char e[50];
+		cout << "Введите слово, перевод которого хотите узнать" << endl;
+		cin >> e;
+		count = recursia3(e, root, count);
+		if (count == 0) { cout << "Такого нема"; }
 		system("pause");
 	}
 };
@@ -295,7 +334,6 @@ struct Tree1 {
 	}
 };
 int menu_start() {
-	cout << "Оно работает, но из-за того, что в функциях информация стирается(несмотря на то, что работа вроде как должно идти с копиями),  почти правильно";
 	int key = 0;
 	int code;
 	do {
@@ -325,12 +363,10 @@ int menu_start() {
 
 int main(bool isRunning)
 {
-	
+	int a1=0, a2=0;
 	Tree1 tree1;
 	Tree2 tree2;
 	Node* p;
-	Node* l;
-	Node* r;
 	int max = 0;
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
@@ -343,17 +379,15 @@ int main(bool isRunning)
 		{
 		case 0:tree1.add_leaf(); break;
 		case 1:tree1.PrintInOrder(); break;
-		case 2:tree1.find(); break;
+		case 2:if (a1 > a2 || (a1>0 && a2>0 && a1==a2)) { tree2.find(); a2 = a1; } else(tree1.find()); break;
 		case 3:
-		{while (tree1.root != NULL)
+		{   a1++;
+			while (tree1.root != NULL)
 		   {
 			max = 0;
 			p = tree1.find_max();
-			l = p->left; r = p->right;
 			tree2.add_leaf_new(p);
-			p->left = l; p->right = r;
 			tree1.RemoveNode(p);
-			p->left = l; p->right = r;
 		   }
 		  tree2.PrintInOrder();
 		  break;
